@@ -1,0 +1,49 @@
+@import 'theme';
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  line-height: 1.65;
+  margin: 0;
+  color: white;
+  background-color: #424242;
+}
+
+a {
+  &:active {
+    opacity: 0.8;
+  }
+  &:hover {
+    text-decoration: none;
+  }
+  &:visited {
+    opacity: 0.5;
+  }
+}
+
+input[type='search']::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}

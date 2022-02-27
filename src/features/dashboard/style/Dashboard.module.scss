@@ -1,0 +1,24 @@
+.header {
+  height: 24px;
+}
+
+.main {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-areas:
+    'g1 g1 g2 g2 g2 g2 g2 g3 g3 g3'
+    'g1 g1 g2 g2 g2 g2 g2 g3 g3 g3'
+    'g1 g1 g2 g2 g2 g2 g2 g3 g3 g3'
+    'g1 g1 g2 g2 g2 g2 g2 g3 g3 g3'
+    'g1 g1 g2 g2 g2 g2 g2 g4 g4 g4';
+  grid-template-columns: repeat(auto-fit, minmax(5px, 1fr));
+  height: calc(100vh - 24px);
+
+  & > * {
+    @for $i from 1 through 4 {
+      &:nth-child(#{$i}) {
+        grid-area: g#{$i};
+      }
+    }
+  }
+}
