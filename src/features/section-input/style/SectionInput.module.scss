@@ -6,7 +6,7 @@
   display: block;
   padding: 1rem;
   width: 100%;
-  height: calc(100% - 120px);
+  height: calc(100% - 50%);
   overflow-x: hidden;
   overflow-y: scroll;
   color: skyblue;
@@ -17,6 +17,6 @@
 
 .controls {
   padding: 1rem;
-  height: 120px;
+  height: 50%;
   background-color: #676767;
 }

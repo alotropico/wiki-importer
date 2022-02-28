@@ -1,19 +1,33 @@
 .container {
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   padding: 1rem;
+  height: calc(100% - 25px);
   overflow-x: hidden;
   overflow-y: scroll;
   color: white;
   background-color: #191919;
+  scroll-behavior: smooth;
+}
+
+.status {
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0.5rem;
+  height: 25px;
+  color: black;
+  background-color: #676767;
 }
 
 .card {
   font-size: 14px;
   line-height: 1.4;
-  // padding: 0.5rem;
-  // border: 1px solid rgba(white, 0.1);
 
   h2 {
     font-size: 16px;
@@ -41,6 +55,7 @@
   margin-bottom: 0.5rem;
   width: 80px;
   height: 80px;
+  background-color: #333;
   object-fit: cover;
   object-position: top center;
 }
@@ -59,13 +74,43 @@
   -webkit-box-orient: vertical;
 }
 
-.raw {
+.raw,
+.default {
   font-family: monospace;
   font-size: 14px;
-  word-break: break-all;
-  line-height: 1.2;
-  max-height: 300px;
+  line-height: 1.3;
+  max-height: 400px;
   overflow-x: hidden;
   overflow-y: auto;
   color: silver;
+
+  .key {
+    opacity: 0.7;
+  }
+
+  .array {
+    display: inline-block;
+    padding-left: 0.5rem;
+    border-left: 1px solid rgba(white, 0.1);
+
+    & > div {
+      display: inline-block;
+      margin-right: 0.5rem;
+      border-bottom: 1px dotted rgba(white, 0.1);
+
+      & > div {
+        display: inline-block;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}
+
+.raw {
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(white, 0.1);
+}
+
+.error {
+  color: crimson;
 }

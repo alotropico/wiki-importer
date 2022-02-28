@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 export default function useParseRaw(raw) {
-  const [parsed, setParsed] = useState([])
+  const [parsed, setParsed] = useState<any>([])
 
   useEffect(() => {
     setParsed(parseRaw(raw))
@@ -12,8 +12,11 @@ export default function useParseRaw(raw) {
 
 const parseRaw = (raw) => {
   try {
-    return JSON.parse(raw)
+    const parse = JSON.parse(raw)
+    return cleanArray(Array.isArray(parse) ? parse : [parse])
   } catch (e) {
-    return []
+    return cleanArray(raw.split(','))
   }
 }
+
+const cleanArray = (ar) => ar.filter((d) => d).map((d) => ({ id: d.replaceAll('"', '').trim() }))

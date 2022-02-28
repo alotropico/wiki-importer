@@ -8,7 +8,7 @@ export default function Card({ item }) {
       {Object.keys(rest).map((k) => {
         const datum = rest[k]
 
-        return <div key={k}>{parseDatum(k, datum)}</div>
+        return datum ? <div key={k}>{parseDatum(k, datum)}</div> : null
       })}
     </div>
   )
@@ -48,16 +48,49 @@ const parseDatum = (k, datum) => {
     case 'brief':
       return <p className={style.brief}>{datum}</p>
 
+    case 'error':
+      return <p className={style.error}>{datum}</p>
+
+    case 'object':
     case 'array':
-      return <div className={style.raw}>{JSON.stringify(datum)}</div>
+      return (
+        <div className={style.raw}>
+          <Datum d={datum} />
+        </div>
+      )
 
     default:
       return (
-        <>
-          {k}: {JSON.stringify(datum)}
-        </>
+        <div className={style.default}>
+          <span className={style.key}>{k}:</span> <Datum d={datum} />
+        </div>
       )
   }
+}
+
+const Datum = ({ d }: any) => {
+  return d === null ? null : Array.isArray(d) ? (
+    <div className={style.array}>
+      {d.map((it, i) => (
+        <div key={i}>
+          <Datum d={it} />
+        </div>
+      ))}
+    </div>
+  ) : typeof d === 'object' ? (
+    <>
+      {Object.keys(d).map((k) => {
+        const className = [k === 'error' ? style.error : ''].join('')
+        return (
+          <div key={k} className={className}>
+            <span className={style.key}>{k}:</span> <Datum d={d[k]} />
+          </div>
+        )
+      })}
+    </>
+  ) : (
+    <>{d}</>
+  )
 }
 
 const formatters = {
@@ -66,7 +99,8 @@ const formatters = {
   pageid: 'wikipediaId',
   wikidataId: 'wikidataId',
   extract: 'brief',
-  claims: 'array',
+  claims: 'object',
+  error: 'error',
   ns: null,
 }
 

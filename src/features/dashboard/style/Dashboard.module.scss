@@ -6,16 +6,17 @@
   display: grid;
   grid-auto-flow: column;
   grid-template-areas:
-    'g1 g1 g2 g2 g2 g2 g2 g3 g3 g3'
-    'g1 g1 g2 g2 g2 g2 g2 g3 g3 g3'
-    'g1 g1 g2 g2 g2 g2 g2 g3 g3 g3'
-    'g1 g1 g2 g2 g2 g2 g2 g3 g3 g3'
-    'g1 g1 g2 g2 g2 g2 g2 g4 g4 g4';
+    'g1 g3 g3 g3 g4'
+    'g1 g3 g3 g3 g4'
+    'g1 g3 g3 g3 g5'
+    'g1 g3 g3 g3 g5'
+    'g2 g3 g3 g3 g5';
   grid-template-columns: repeat(auto-fit, minmax(5px, 1fr));
+  grid-template-rows: repeat(5, minmax(5px, 1fr));
   height: calc(100vh - 24px);
 
   & > * {
-    @for $i from 1 through 4 {
+    @for $i from 1 through 5 {
       &:nth-child(#{$i}) {
         grid-area: g#{$i};
       }

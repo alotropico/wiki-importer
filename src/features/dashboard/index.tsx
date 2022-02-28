@@ -1,5 +1,6 @@
 import SectionHeader from '../section-header'
 import SectionInput from '../section-input'
+import SectionConfig from '../section-config'
 import SectionConsole from '../section-console'
 import SectionOutput from '../section-output'
 import SectionMessages from '../section-messages'
@@ -20,6 +21,7 @@ export default function Dashboard() {
 
       <main className={style.main}>
         <SectionInput handleChange={handleInput} />
+        <SectionConfig />
         <SectionConsole queue={queue} />
         <SectionOutput />
         <SectionMessages />

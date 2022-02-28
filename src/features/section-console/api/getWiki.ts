@@ -1,5 +1,5 @@
 import getWikipedia, { getWikidataIdFromWikipedia, getWikimedia } from './getWikipedia'
-import getFromWikidata from './getFromWikidata'
+import getWikidata from './getWikidata'
 
 const getWiki = async (id, callback) => {
   return await getWikimedia(id)
@@ -9,19 +9,23 @@ const getWiki = async (id, callback) => {
 
     .then(() => getWikipedia(id))
     .then((wikipedia) => {
-      callback({ ...wikipedia }, id)
+      callback(showError(wikipedia, wikipedia), id)
     })
 
     .then(() => getWikidataIdFromWikipedia(id))
-    .then((wikidataId) => {
-      callback({ wikidataId }, id)
-      return wikidataId
+    .then((wikidata) => {
+      callback(showError(wikidata, { wikidataId: wikidata?.id }), id)
+      return wikidata?.id
     })
 
-    .then((id) => getFromWikidata(id))
+    .then(async (id) => (id ? getWikidata(id) : { error: 'No Wikidata id' }))
     .then((claims) => {
-      callback({ claims }, id)
+      callback(showError(claims, claims), id)
     })
+}
+
+const showError = (obj, desired) => {
+  return obj?.['error'] || desired ? desired : { error: 'No data' }
 }
 
 export default getWiki

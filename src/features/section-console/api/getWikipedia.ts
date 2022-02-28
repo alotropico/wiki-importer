@@ -8,9 +8,15 @@ const getWikipedia = async (id) => {
       if (pages) {
         const info = pages[Object.keys(pages)[0]]
         const { title, pageid, extract } = info
-        return { title, pageid, extract } || { error: 'No page id' }
+        return (
+          {
+            title,
+            pageid,
+            extract: parseWikidataExtract(extract || ''),
+          } || { error: 'No page id on Wikipedia object' }
+        )
       } else {
-        return { error: 'Something went wrong' }
+        return { error: 'No pages found on Wikipedia' }
       }
     })
 }
@@ -26,7 +32,7 @@ const getWikimedia = async (id) => {
         const info = pages[Object.keys(pages)[0]]
         return info?.thumbnail?.source || null
       } else {
-        return 'Something went wrong'
+        return { error: 'No pages found on Wikimedia' }
       }
     })
 }
@@ -40,13 +46,18 @@ const getWikidataIdFromWikipedia = async (id) => {
       const pages = data?.query?.pages
       if (pages) {
         const info = pages[Object.keys(pages)[0]]
-
-        return info?.pageprops?.wikibase_item || 'No Wikidata id'
+        return { id: info?.pageprops?.wikibase_item } || { error: 'No Wikidata id' }
       } else {
-        return 'Something went wrong'
+        return { error: 'Wikidata id not found on Wikipedia' }
       }
     })
 }
+
+const parseWikidataExtract = (str) =>
+  str
+    .replaceAll('  ', ' ')
+    .replace(/\s*\(.*\)/, '')
+    .replace(/\s*\[.*\]/, '')
 
 export { getWikidataIdFromWikipedia, getWikimedia }
 export default getWikipedia
