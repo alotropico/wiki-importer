@@ -1,16 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 
+import { AppContext } from '../../providers/Context'
 import useParseRaw from './hooks/useParseRaw'
 import style from './style/SectionInput.module.scss'
 
-export default function SectionInput({ handleChange }) {
+export default function SectionInput() {
   const [inputText, setInputText] = useState('')
   const [raw, setRaw] = useState('')
 
   const parsed = useParseRaw(raw)
 
+  const { setInputItems } = useContext(AppContext)
+
   useEffect(() => {
-    handleChange(parsed)
+    setInputItems(parsed)
   }, [parsed])
 
   useEffect(() => {
@@ -20,37 +23,37 @@ export default function SectionInput({ handleChange }) {
     }
   }, [inputText])
 
+  useEffect(() => {
+    setInputText(demo)
+  }, [])
+
   return (
     <section>
       <textarea
-        placeholder='Paste JSON here...'
+        placeholder={placeholder}
         className={style.textarea}
         onChange={(e) => setInputText(e.target.value)}
         defaultValue={demo}
       />
-      <div className={style.controls} />
     </section>
   )
 }
 
-const demo = [
-  'Marie Curie',
-  'Isaac Newton',
-  'Dostoevsky',
-  'Pompey the Great',
-  'Darius the Great',
-  'Sappho',
-  'Romulus',
-  'Leonidas I',
-  'Pythagoras',
-  'Ptolemy I Soter',
-].join(', ')
+const demo = '' //['Marie Curie', 'Isaac Newton', 'Q1048'].join(', ')
 
-// const demo = JSON.stringify([
-//   { id: 'Gaius Claudius Marcellus (consul 50 BC)', position: 'Consul', year: -50 },
-//   { id: 'Julius Caesar', position: 'Consul', year: -45 },
-//   { id: 'Augustus', position: 'Consul suffectus', year: -43 },
-//   { id: 'Justinian I' },
-//   { id: 'Socrates' },
-//   { id: 'Alexander the great' },
-// ])
+const placeholder = `Write something to search here...
+
+Names or Wikidata ids separated by colons, semi-colons or newlines:
+  Madam Curie, Tyrannosaurus, India
+
+You can also paste a list in JSON format:
+[
+  {
+    "id": "Julius Caesar",
+    "place": "Rome"
+  },
+  {
+    "id": "Q16",
+    "language": "English"
+  }
+]`

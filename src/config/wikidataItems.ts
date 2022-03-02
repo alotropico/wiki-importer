@@ -1,6 +1,6 @@
 const wikidataItems = {
-  Q6581097: 'male',
   Q5: 'human',
+  Q6581097: 'male',
 
   Q220: 'Rome',
   Q1747689: 'Rome',

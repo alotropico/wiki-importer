@@ -53,11 +53,26 @@ const getWikidataIdFromWikipedia = async (id) => {
     })
 }
 
+const getWikipediaTitleFromWikidataId = async (id) => {
+  return fetch(
+    `https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&props=sitelinks&ids=${id}&sitefilter=enwiki&origin=*`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      const title = data?.entities?.[id]?.sitelinks?.enwiki?.title
+      if (title) {
+        return title
+      } else {
+        return id
+      }
+    })
+}
+
 const parseWikidataExtract = (str) =>
   str
     .replaceAll('  ', ' ')
     .replace(/\s*\(.*\)/, '')
     .replace(/\s*\[.*\]/, '')
 
-export { getWikidataIdFromWikipedia, getWikimedia }
+export { getWikidataIdFromWikipedia, getWikimedia, getWikipediaTitleFromWikidataId }
 export default getWikipedia

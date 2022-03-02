@@ -1,16 +1,16 @@
 .container {
-  font-size: 14px;
+  font-size: 34px;
+  font-weight: lighter;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
   line-height: 1;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 0 0.5rem;
   color: white;
+  opacity: 0.2;
 }
 
 .logo {
-  font-size: 10px;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: burlywood;
 }

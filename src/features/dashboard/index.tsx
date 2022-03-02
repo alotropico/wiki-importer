@@ -4,27 +4,21 @@ import SectionConfig from '../section-config'
 import SectionConsole from '../section-console'
 import SectionOutput from '../section-output'
 import SectionMessages from '../section-messages'
+import SectionAbout from '../section-about'
 
 import style from './style/Dashboard.module.scss'
-import { useState } from 'react'
 
 export default function Dashboard() {
-  const [queue, setQueue] = useState<any>([])
-
-  const handleInput = (newItems) => {
-    setQueue((queue) => [...queue, ...newItems])
-  }
-
   return (
     <>
-      <SectionHeader className={style.header} />
-
       <main className={style.main}>
-        <SectionInput handleChange={handleInput} />
+        <SectionInput />
         <SectionConfig />
-        <SectionConsole queue={queue} />
+        <SectionConsole />
         <SectionOutput />
         <SectionMessages />
+        <SectionHeader />
+        <SectionAbout />
       </main>
     </>
   )

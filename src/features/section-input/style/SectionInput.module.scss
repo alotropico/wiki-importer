@@ -6,17 +6,11 @@
   display: block;
   padding: 1rem;
   width: 100%;
-  height: calc(100% - 50%);
+  height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
   color: skyblue;
-  background-color: #333;
+  background-color: #191919;
   border: none;
   resize: none;
-}
-
-.controls {
-  padding: 1rem;
-  height: 50%;
-  background-color: #676767;
 }
