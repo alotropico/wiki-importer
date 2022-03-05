@@ -4,7 +4,7 @@
   grid-template-columns: 1fr 1fr 1fr;
   align-items: flex-start;
   padding: 1rem;
-  height: calc(100% - 25px);
+  height: calc(100% - 1.5rem - 1.5rem);
   overflow-x: hidden;
   overflow-y: scroll;
   color: white;
@@ -13,21 +13,19 @@
 }
 
 .status {
-  font-family: monospace;
   font-size: 12px;
   font-weight: bold;
-  line-height: 1;
+  line-height: 1.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0 0.5rem;
-  height: 25px;
+  height: 1.5rem;
   color: black;
   background-color: #676767;
 }
 
 .card {
-  font-size: 14px;
   line-height: 1.4;
 
   h2 {
@@ -66,24 +64,31 @@
 }
 
 .brief {
+  font-family: sans-serif;
   display: -webkit-box;
   clear: both;
   margin: 0 0 0.5rem;
   max-height: 200px;
   overflow: hidden;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 6;
   -webkit-box-orient: vertical;
+
+  &:hover {
+    overflow-y: auto;
+  }
 }
 
 .raw,
 .default {
-  font-family: monospace;
-  font-size: 14px;
   line-height: 1.3;
-  max-height: 400px;
-  overflow-x: hidden;
-  overflow-y: auto;
+  clear: both;
+  max-height: calc(12em * 1.2);
+  overflow: hidden;
   color: silver;
+
+  &:hover {
+    overflow-y: auto;
+  }
 
   .key {
     opacity: 0.7;

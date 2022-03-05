@@ -12,7 +12,7 @@ const getWikidata = async (id, wikidataLog) => {
       if (claims) {
         return await { claims: await parseWikidataClaims(claims, wikidataLog) }
       } else {
-        return { error: 'No claims found on Wikidata' }
+        return ''
       }
     })
 }

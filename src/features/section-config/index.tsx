@@ -35,6 +35,6 @@ const getMsg = (status, queue, backlog) => {
       return `All done! (${backlog.length} items)`
 
     default:
-      return 'Press the button to start fetching.'
+      return 'Write something above.'
   }
 }

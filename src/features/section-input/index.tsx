@@ -39,12 +39,11 @@ export default function SectionInput() {
   )
 }
 
-const demo = '' //['Marie Curie', 'Isaac Newton', 'Q1048'].join(', ')
+const demo = '' // 'Carthage, Scipio Africanus, Hannibal, Hasdrubal the Fair, Q311702, Q312306, Q315274, Q335604, Q382007, Q382276, Q452048, Q463438, Q554632, Q561677, Q580979, Q857028, Q867394, Q935520, Q962753, Q1347118, Q1491511, Q1592862, Q1738423, Q1981450, Q2902213, Q4118145, Q4281819, Q5638907, Q5849589, Q5970111, Q6744857, Q8964159, Q9003822, Q11682330, Q11948158, Q18812167, Q102350968'
 
 const placeholder = `Write something to search here...
 
-Names or Wikidata ids separated by colons, semi-colons or newlines:
-  Madam Curie, Tyrannosaurus, India
+Names or Wikidata ids: Madam Curie, Tyrannosaurus, India
 
 You can also paste a list in JSON format:
 [

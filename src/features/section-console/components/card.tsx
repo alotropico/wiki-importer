@@ -1,13 +1,14 @@
 import style from '../style/SectionConsole.module.scss'
 
 export default function Card({ item }) {
-  const { id, ...rest } = item
+  const { id, imageUrl, title, ...rest } = item
 
   return (
     <div className={style.card}>
+      {imageUrl && <div>{parseDatum('imageUrl', imageUrl)}</div>}
+      {parseDatum('title', title || id)}
       {Object.keys(rest).map((k) => {
         const datum = rest[k]
-
         return datum ? <div key={k}>{parseDatum(k, datum)}</div> : null
       })}
     </div>

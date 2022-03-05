@@ -16,8 +16,8 @@ body {
 }
 
 body {
-  font-family: var(--font-family);
-  font-size: var(--font-size);
+  font-family: monospace;
+  font-size: 14px;
   line-height: 1.65;
   margin: 0;
   color: white;
@@ -47,4 +47,27 @@ textarea,
 select {
   font: inherit;
   color: inherit;
+}
+
+textarea {
+  font: inherit;
+  tab-size: 1;
+  display: block;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  border: none;
+  resize: none;
+}
+
+h3 {
+  font-size: 12px;
+  font-weight: inherit;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.125em;
+  line-height: 1.5rem;
+  margin: 0;
+  padding: 0;
+  height: 1.5rem;
 }

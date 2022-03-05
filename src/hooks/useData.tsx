@@ -4,8 +4,19 @@ import { AppContext } from '../providers/Context'
 import getWiki from '../api/getWiki'
 
 export default function useData() {
-  const { inputItems, playing, setFetching, backlog, setBacklog, queue, setQueue, data, setData } =
-    useContext(AppContext)
+  const {
+    inputItems,
+    playing,
+    setFetching,
+    backlog,
+    setBacklog,
+    queue,
+    setQueue,
+    data,
+    setData,
+    setWikidataExtra,
+    setErrors,
+  } = useContext(AppContext)
 
   useEffect(() => {
     const newItems = inputItems.filter((item) => !backlog.find((bItem) => bItem.id === item.id))
@@ -19,8 +30,12 @@ export default function useData() {
     if (playing && queue.length) fetchItem()
   }, [queue.length, playing])
 
+  const errorLog = (error) => {
+    if (error) setErrors((errors) => [...errors, error])
+  }
+
   const wikidataLog = (logItem) => {
-    console.log(logItem)
+    setWikidataExtra((wiki) => [...wiki, logItem])
   }
 
   const fetchItem = () => {
@@ -32,11 +47,11 @@ export default function useData() {
     const { id } = nextItem
 
     // create new item by id in data collection
-    pushData({ id })
+    //pushData({ id })
 
-    getWiki(id, pushData, wikidataLog).then(async () => {
-      // Add properties from user input data
-      pushData(nextItem, id)
+    getWiki(id, pushData, wikidataLog, errorLog).then(async () => {
+      // Add properties from user input data if it has any other than id
+      if (Object.keys(nextItem).length > 1) pushData(nextItem, id)
       // Remove item from queue
       setQueue((queue) => queue.slice(1))
       // Fetching stopped
@@ -44,10 +59,14 @@ export default function useData() {
     })
   }
 
-  const pushData = (datum, create = false) =>
-    setData((data) =>
-      create ? data.map((item) => (item.id === create ? { ...item, ...datum } : item)) : [...data, datum]
-    )
+  const pushData = (datum, id) => {
+    if (datum)
+      setData((data) => {
+        return !data.find((item) => item.id === id)
+          ? [...data, { ...datum, id }]
+          : data.map((item) => (item.id === id ? { ...item, ...datum } : item))
+      })
+  }
 
   return { data, queue, backlog }
 }

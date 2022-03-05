@@ -17,17 +17,13 @@ export default function AppContextProvider({ children }: AppContextProviderProps
 
   const [data, setData] = useState<any>([]) // Data fetched
 
-  // useEffect(() => {
-  //   if (fetching && queue.length) setPlaying(true)
-  // }, [queue.length])
+  const [wikidataExtra, setWikidataExtra] = useState<any>([]) // Extra Wikidata items fetched
+
+  const [errors, setErrors] = useState<any>([])
 
   useEffect(() => {
     if (!fetching && !queue.length) setPlaying(false)
   }, [fetching, playing])
-
-  // useEffect(() => {
-  //   if (!queue.length) setPlaying(false)
-  // }, [playing])
 
   const contextMethods = {
     playing,
@@ -42,6 +38,10 @@ export default function AppContextProvider({ children }: AppContextProviderProps
     setQueue,
     data,
     setData,
+    wikidataExtra,
+    setWikidataExtra,
+    errors,
+    setErrors,
   }
 
   return <AppContext.Provider value={contextMethods}>{children}</AppContext.Provider>

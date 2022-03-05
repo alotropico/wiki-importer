@@ -1,3 +1,36 @@
 .container {
+  font-size: 14px;
+  padding: 0.5rem;
+  height: calc(100% - 1.5rem - 2rem);
+  overflow-y: auto;
   background-color: #333;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+
+  & > * {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    color: burlywood;
+
+    & > *:first-child {
+      color: skyblue;
+    }
+  }
+}
+
+.tools {
+  line-height: 2rem;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  padding: 0.5rem 1rem;
+  height: 2rem;
+
+  & > span {
+    line-height: 1rem;
+    padding: 0 0.5rem;
+    background-color: cornflowerblue;
+    cursor: pointer;
+  }
 }

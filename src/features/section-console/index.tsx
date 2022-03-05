@@ -18,6 +18,7 @@ export default function SectionConsole() {
 
   return (
     <section>
+      <h3 className={style.title}>Console ({data.length})</h3>
       <div className={style.container} ref={ref}>
         {data.map((h) => (
           <Card key={h.id} item={h} />

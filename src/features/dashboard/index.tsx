@@ -7,17 +7,20 @@ import SectionMessages from '../section-messages'
 import SectionAbout from '../section-about'
 
 import style from './style/Dashboard.module.scss'
+import SectionErrors from '../section-errors'
 
 export default function Dashboard() {
   return (
     <>
       <main className={style.main}>
+        <SectionHeader />
         <SectionInput />
         <SectionConfig />
+        <SectionAbout />
         <SectionConsole />
         <SectionOutput />
         <SectionMessages />
-        <SectionHeader />
+        <SectionErrors />
         <SectionAbout />
       </main>
     </>
