@@ -1,0 +1,26 @@
+.container {
+  font-size: 12px;
+  word-wrap: break-word;
+  line-height: 1.2;
+  padding: 0.5rem;
+  height: calc(100% - 1.5rem - 2rem);
+  color: mediumpurple;
+  background-color: #191919;
+}
+
+.tools {
+  line-height: 2rem;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  padding: 0.5rem 1rem;
+  height: 2rem;
+  background-color: #333;
+
+  & > span {
+    line-height: 1rem;
+    padding: 0 0.5rem;
+    background-color: mediumpurple;
+    cursor: pointer;
+  }
+}

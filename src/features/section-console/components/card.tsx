@@ -1,12 +1,15 @@
+import extUrl from '../../../utils/extUrl'
 import style from '../style/SectionConsole.module.scss'
 
 export default function Card({ item }) {
   const { id, imageUrl, title, ...rest } = item
 
+  const titleText = title || id
+
   return (
     <div className={style.card}>
       {imageUrl && <div>{parseDatum('imageUrl', imageUrl)}</div>}
-      {parseDatum('title', title || id)}
+      {parseDatum('title', <A href={extUrl(titleText)}>{titleText}</A>)}
       {Object.keys(rest).map((k) => {
         const datum = rest[k]
         return datum ? <div key={k}>{parseDatum(k, datum)}</div> : null

@@ -15,7 +15,7 @@ const parseRaw = (raw) => {
     const parse = JSON.parse(raw)
     return cleanArray(Array.isArray(parse) ? parse : [parse])
   } catch (e) {
-    return cleanArray(raw.split(/[\n,;]/))
+    return cleanArray(raw.split(/[\n,;:]/))
   }
 }
 

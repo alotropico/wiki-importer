@@ -1,4 +1,4 @@
-import { reduce, map } from 'awaity'
+import { reduce } from 'awaity'
 
 import wikidataProperties from '../config/wikidataProps'
 import wikidataItems from '../config/wikidataItems'
@@ -41,10 +41,21 @@ const parseWikidataClaims = async (claims, wikidataLog) => {
   )
 }
 
-const parseWikidataClaim = async (claim, multi, type, wikidataLog) =>
-  await (multi
-    ? map(claim, async (item) => parseWikidataClaimItem(item, type, wikidataLog))
-    : parseWikidataClaimItem(claim[0], type, wikidataLog))
+const parseWikidataClaim = async (claim, multi, type, wikidataLog) => {
+  if (!claim) return ''
+
+  if (!multi) return parseWikidataClaimItem(claim[0], type, wikidataLog)
+
+  const ret: any = []
+
+  for (let i = 0; i < claim.length; i++) {
+    const item = claim[i]
+    const newItem = await parseWikidataClaimItem(item, type, wikidataLog)
+    ret.push(newItem)
+  }
+
+  return ret
+}
 
 const parseWikidataClaimItem = async (item, type, wikidataLog) => {
   switch (type) {
@@ -56,15 +67,26 @@ const parseWikidataClaimItem = async (item, type, wikidataLog) => {
         getYear(item?.qualifiers?.P580?.[0]?.datavalue?.value?.time) ||
         getYear(item?.qualifiers?.P585?.[0]?.datavalue?.value?.time)
       const end = getYear(item?.qualifiers?.P582?.[0]?.datavalue?.value?.time)
-      const event: any = { name: await getWikidataLabel(item?.mainsnak?.datavalue?.value?.id, wikidataLog) }
+      const name = await getWikidataLabel(item?.mainsnak?.datavalue?.value?.id, wikidataLog)
+      const event: any = { name }
       if (start) event.start = start
       if (end) event.end = end
       return !end || start ? event : null
     }
 
+    case 'coordinates':
+      return getCoordinates(item?.mainsnak?.datavalue?.value)
+
+    case 'place':
+      return getWikidataLabel(item?.mainsnak?.datavalue?.value?.id, wikidataLog, true)
+
     default:
       return await getWikidataLabel(item?.mainsnak?.datavalue?.value?.id, wikidataLog)
   }
+}
+
+const getCoordinates = (obj) => {
+  return obj && [obj?.longitude, obj?.latitude]
 }
 
 const getYear = (date) => {
@@ -72,11 +94,33 @@ const getYear = (date) => {
   return date ? Number(strDate.slice(0, strDate.indexOf('-', 1))) : null
 }
 
-const getWikidataLabel = async (wikidataId, wikidataLog) => {
-  return await (wikidataId && wikidataItems?.[wikidataId]
-    ? wikidataItems?.[wikidataId]
-    : fetchWikidataLabel(wikidataId, wikidataLog))
+const getWikidataLabel = async (wikidataId, wikidataLog, getFullItem = false) => {
+  if (wikidataId && wikidataItems?.[wikidataId]) return wikidataItems?.[wikidataId]
+
+  if (getFullItem) return await fetchWikidataItem(wikidataId, wikidataLog)
+
+  const label = await fetchWikidataLabel(wikidataId, wikidataLog)
+
+  return label
 }
+
+const fetchWikidataItem = async (wikidataId, wikidataLog) =>
+  fetch(`https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${wikidataId}&format=json&props=claims&origin=*`)
+    .then((response) => response.json())
+    .then(async (data) => {
+      const label = await fetchWikidataLabel(wikidataId, () => null)
+
+      const coordinates = await parseWikidataClaim(
+        data?.entities?.[wikidataId]?.claims?.P625,
+        false,
+        'coordinates',
+        () => null
+      )
+
+      wikidataLog({ wikidataId, label, coordinates })
+
+      return label
+    })
 
 const fetchWikidataLabel = async (wikidataId, wikidataLog) =>
   fetch(
@@ -86,8 +130,8 @@ const fetchWikidataLabel = async (wikidataId, wikidataLog) =>
     .then((data) => {
       const label = data?.entities?.[wikidataId]?.labels?.en?.value
       if (label) {
-        wikidataLog({ [wikidataId]: label })
         wikidataItems[wikidataId] = label
+        wikidataLog({ wikidataId, label })
         return label
       } else {
         return wikidataId

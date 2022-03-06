@@ -1,5 +1,7 @@
 import getWikipedia, { getWikidataIdFromWikipedia, getWikimedia, getWikipediaTitleFromWikidataId } from './getWikipedia'
 import getWikidata from './getWikidata'
+import isWikidataId from '../utils/isWikidataId'
+import extUrl from '../utils/extUrl'
 
 const getWiki = async (inputId, callback, wikidataLog, errorLog) => {
   try {
@@ -36,22 +38,20 @@ const getWiki = async (inputId, callback, wikidataLog, errorLog) => {
       })
   } catch (e) {
     console.error(e)
-    errorLog(getError('js', inputId, JSON.stringify(e)))
+    errorLog(getError('js', inputId))
   }
 }
-
-const isWikidataId = (str) => /^q\d+$/i.test(str)
 
 const showError = (obj) => {
   return !obj
 }
 
-const getError = (type, id, msg = '') => {
+const getError = (type, id) => {
   switch (type) {
     case 'pageId':
       return {
         msg: 'Not found on Wikipedia in English',
-        link: isWikidataId(id) ? `https://www.wikidata.org/wiki/${id}` : `https://www.google.com/search?q=${id}`,
+        link: extUrl(id),
         id,
       }
 
@@ -59,7 +59,7 @@ const getError = (type, id, msg = '') => {
       return !isWikidataId(id)
         ? {
             msg: 'Wikidata Id not found in Wikipedia',
-            link: `https://www.google.com/search?q=${id}`,
+            link: extUrl(id),
             id,
           }
         : ''
@@ -68,7 +68,7 @@ const getError = (type, id, msg = '') => {
       return isWikidataId(id)
         ? {
             msg: 'No claims found on Wikidata',
-            link: `https://www.wikidata.org/wiki/${id}`,
+            link: extUrl(id),
             id,
           }
         : ''
@@ -76,7 +76,7 @@ const getError = (type, id, msg = '') => {
     default:
       return {
         msg: 'API or JS Error. Watch the console',
-        link: `https://www.wikidata.org/wiki/${id}`,
+        link: extUrl(id),
         id,
       }
   }

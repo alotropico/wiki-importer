@@ -17,6 +17,13 @@ ReactDOM.render(
 reportWebVitals()
 
 // TODOS
+// avoid repeating children wikidata fetches
+// get coordinate location and point in time https://www.wikidata.org/wiki/Q6959206
+// fetch places with coordinates into a different JSON file
+
 // review extract parsing
 // include floruit as event
 // distinguish circa from precise dates
+// excludes
+// parse disambiguation pages as errors
+// interrupt then chains when error occurs

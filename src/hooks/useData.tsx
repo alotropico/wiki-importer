@@ -47,7 +47,6 @@ export default function useData() {
     const { id } = nextItem
 
     // create new item by id in data collection
-    //pushData({ id })
 
     getWiki(id, pushData, wikidataLog, errorLog).then(async () => {
       // Add properties from user input data if it has any other than id

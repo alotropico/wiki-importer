@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 
 import { AppContext } from '../../providers/Context'
+import extUrl from '../../utils/extUrl'
 import style from './style/SectionMessages.module.scss'
 
 export default function SectionMessages() {
@@ -8,13 +9,19 @@ export default function SectionMessages() {
 
   return (
     <section>
-      <h3 className={style.title}>Extra Children Fetched ({wikidataExtra.length})</h3>
+      <h3 className={style.title}>Children Fetched ({wikidataExtra.length})</h3>
       <div className={style.container}>
         {wikidataExtra.map((item, i) => {
-          const key = Object.keys(item)[0]
+          const { wikidataId, label, coordinates } = item
           return (
-            <div key={i} title={item[key]}>
-              <span>{key}:</span> <span>{item[key]}</span>
+            <div key={i} title={label} className={coordinates && style.place}>
+              <span>
+                <a href={extUrl(wikidataId)} target='_blank' rel='noreferrer'>
+                  {wikidataId}
+                </a>
+                :
+              </span>{' '}
+              <span>{label}</span>
             </div>
           )
         })}

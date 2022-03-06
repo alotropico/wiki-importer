@@ -5,6 +5,7 @@ import SectionConsole from '../section-console'
 import SectionOutput from '../section-output'
 import SectionMessages from '../section-messages'
 import SectionAbout from '../section-about'
+import SectionPlaces from '../section-places'
 
 import style from './style/Dashboard.module.scss'
 import SectionErrors from '../section-errors'
@@ -16,11 +17,11 @@ export default function Dashboard() {
         <SectionHeader />
         <SectionInput />
         <SectionConfig />
-        <SectionAbout />
+        <SectionErrors />
         <SectionConsole />
         <SectionOutput />
         <SectionMessages />
-        <SectionErrors />
+        <SectionPlaces />
         <SectionAbout />
       </main>
     </>
