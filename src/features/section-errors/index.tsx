@@ -8,7 +8,7 @@ export default function SectionErrors() {
 
   return (
     <section>
-      <h3 className={style.title}>Errors ({errors.length})</h3>
+      <h3 className={style.title}>Warnings ({errors.length})</h3>
       <div className={style.container}>
         {errors.map((item, i) => (
           <div key={i}>

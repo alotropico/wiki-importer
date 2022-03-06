@@ -17,7 +17,7 @@ export default function SectionInput() {
   }, [parsed])
 
   useEffect(() => {
-    const timeOut = setTimeout(() => setRaw(inputText), 1000)
+    const timeOut = setTimeout(() => setRaw(inputText), 200)
     return () => {
       clearTimeout(timeOut)
     }
@@ -44,9 +44,9 @@ const demo =
 
 const placeholder = `Write something to search here...
 
-Names or Wikidata ids: Madam Curie, Tyrannosaurus, India
+Names or Wikidata ids: Madam Curie, Tyrannosaurus, India...`
 
-You can also paste a list in JSON format:
+/* You can also paste a list in JSON format:
 [
   {
     "id": "Julius Caesar",
@@ -56,4 +56,4 @@ You can also paste a list in JSON format:
     "id": "Q16",
     "language": "English"
   }
-]`
+]` */

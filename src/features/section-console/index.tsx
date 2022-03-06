@@ -12,6 +12,7 @@ export default function SectionConsole() {
   const ref = useRef<any>(null)
 
   const scrollHeight = ref?.current?.scrollHeight
+
   useEffect(() => {
     if (scrollHeight) scrollTo(ref.current, scrollHeight, 200)
   }, [scrollHeight])
@@ -25,7 +26,8 @@ export default function SectionConsole() {
         ))}
       </div>
       <div className={style.status}>
-        Queued: {padNum(queue.length, 4)} | Fetched: {padNum(data.length, 4)} | Total: {padNum(backlog.length, 4)}
+        Queued: {padNum(queue.length, 4)} | Fetched: {padNum(data.length, 4)} | Total:{' '}
+        {padNum(queue.length + data.length, 4)}
       </div>
     </section>
   )

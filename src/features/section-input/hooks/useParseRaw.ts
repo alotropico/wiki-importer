@@ -19,4 +19,4 @@ const parseRaw = (raw) => {
   }
 }
 
-const cleanArray = (ar) => ar.filter((d) => d).map((d) => ({ id: d.replaceAll('"', '').trim() }))
+const cleanArray = (ar) => ar.filter((d) => d.trim()).map((d) => ({ id: d.replaceAll('"', '').trim() }))

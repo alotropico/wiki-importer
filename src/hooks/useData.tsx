@@ -19,11 +19,11 @@ export default function useData() {
   } = useContext(AppContext)
 
   useEffect(() => {
-    const newItems = inputItems.filter((item) => !backlog.find((bItem) => bItem.id === item.id))
-    if (newItems.length) {
-      setQueue((queue) => [...queue, ...newItems])
-      setBacklog((backlog) => [...backlog, ...newItems])
-    }
+    const newItems = inputItems.filter((item) => !data.find((bItem) => bItem.id === item.id))
+    //if (newItems.length) {
+    setQueue(newItems)
+    //setBacklog((backlog) => [...backlog, ...newItems])
+    //}
   }, [JSON.stringify(inputItems)])
 
   useEffect(() => {
