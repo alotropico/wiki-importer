@@ -25,7 +25,7 @@ export default function SectionConsole() {
         ))}
       </div>
       <div className={style.status}>
-        Queue: {padNum(queue.length, 3)} | Fetched: {padNum(data.length, 3)} | Total: {padNum(backlog.length, 3)}
+        Queued: {padNum(queue.length, 4)} | Fetched: {padNum(data.length, 4)} | Total: {padNum(backlog.length, 4)}
       </div>
     </section>
   )

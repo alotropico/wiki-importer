@@ -28,7 +28,8 @@ export default function SectionMessages() {
       </div>
       {!!wikidataExtra.length && (
         <div className={style.tools}>
-          <span>Copy</span>
+          <span>Copy w/o Places</span>
+          <span>Copy All</span>
         </div>
       )}
     </section>

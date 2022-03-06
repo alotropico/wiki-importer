@@ -139,3 +139,4 @@ const fetchWikidataLabel = async (wikidataId, wikidataLog) =>
     })
 
 export default getWikidata
+export { getWikidataLabel }

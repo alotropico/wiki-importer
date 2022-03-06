@@ -1,11 +1,16 @@
 import getWikipedia, { getWikidataIdFromWikipedia, getWikimedia, getWikipediaTitleFromWikidataId } from './getWikipedia'
-import getWikidata from './getWikidata'
+import getWikidata, { getWikidataLabel } from './getWikidata'
 import isWikidataId from '../utils/isWikidataId'
 import extUrl from '../utils/extUrl'
 
 const getWiki = async (inputId, callback, wikidataLog, errorLog) => {
   try {
     const id = !isWikidataId(inputId) ? inputId : await getWikipediaTitleFromWikidataId(inputId.toUpperCase())
+
+    if (isWikidataId(id)) {
+      const title = await getWikidataLabel(id, () => null)
+      if (!isWikidataId(title)) callback({ title }, inputId)
+    }
 
     return await getWikimedia(id)
       .then((imageUrl) => {
