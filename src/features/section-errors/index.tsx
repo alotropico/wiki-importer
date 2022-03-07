@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 
+import copyTextToClipboard from '../../utils/copyTextToClipboard'
 import { AppContext } from '../../providers/Context'
 import style from './style/SectionErrors.module.scss'
 
@@ -20,9 +21,11 @@ export default function SectionErrors() {
       </div>
       {!!errors.length && (
         <div className={style.tools}>
-          <span>Copy</span>
+          <span onClick={() => copyTextToClipboard(objArrayToText(errors))}>Copy</span>
         </div>
       )}
     </section>
   )
 }
+
+const objArrayToText = (ar) => ar.map((i) => `${i?.id}: ${i?.msg}`).join('\n')

@@ -66,11 +66,11 @@ const getWikipediaTitleFromWikidataId = async (id) => {
     })
 }
 
-const parseWikidataExtract = (str) =>
-  str
-    .replaceAll('  ', ' ')
-    .replace(/\s*\(.*\)/, '')
-    .replace(/\s*\[.*\]/, '')
+const parseWikidataExtract = (str) => str
+// str
+//   .replaceAll('  ', ' ')
+//   .replace(/\s*\(.*\)/, '')
+//   .replace(/\s*\[.*\]/, '')
 
 export { getWikidataIdFromWikipedia, getWikimedia, getWikipediaTitleFromWikidataId }
 export default getWikipedia

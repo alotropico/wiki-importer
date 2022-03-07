@@ -1,5 +1,8 @@
 const wikidataProperties = {
   P31: { label: 'type', multi: true }, // instance of
+  P279: { label: 'type', multi: true }, // subclass of
+
+  P18: { label: 'image' },
 
   P276: { label: 'place', multi: true, type: 'place' }, // location
   P19: { label: 'place', multi: true, type: 'place' }, // birth place
@@ -7,7 +10,7 @@ const wikidataProperties = {
   P551: { label: 'place', multi: true, type: 'place' }, // residence
 
   P27: { label: 'set', multi: true, type: 'place' }, // country of citizenship
-  P172: { label: 'set', multi: true }, // ethnic group
+  // P172: { label: 'set', multi: true }, // ethnic group
   P361: { label: 'set', multi: true }, // part of
 
   P571: { label: 'start', type: 'date' }, // inception
@@ -19,6 +22,8 @@ const wikidataProperties = {
   P570: { label: 'end', type: 'date' }, // date of death
   P582: { label: 'end', type: 'date' }, // end time
   P746: { label: 'end', type: 'date' }, // date of disappearance
+
+  P1317: { label: 'events', multi: true, type: 'event' }, // floruit
 
   P21: { label: 'gender' },
 

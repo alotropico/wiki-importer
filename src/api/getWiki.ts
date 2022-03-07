@@ -10,37 +10,40 @@ const getWiki = async (inputId, callback, wikidataLog, errorLog) => {
     if (isWikidataId(id)) {
       const title = await getWikidataLabel(id, () => null)
       if (!isWikidataId(title)) callback({ title }, inputId)
+    } else {
+      await getWikimedia(id).then((imageUrl) => {
+        if (!showError(imageUrl)) callback({ imageUrl }, inputId)
+        return imageUrl ? imageUrl : ''
+      })
     }
 
-    return await getWikimedia(id)
-      .then((imageUrl) => {
-        if (!showError(imageUrl)) callback({ imageUrl }, inputId)
-      })
+    const wikipediaData = await getWikipedia(id).then((wikipedia) => {
+      if (!showError(wikipedia && wikipedia?.pageid)) callback(wikipedia, inputId)
+      else errorLog(getError('pageId', id))
+    })
 
-      .then(() => getWikipedia(id))
-      .then((wikipedia) => {
-        if (!showError(wikipedia && wikipedia?.pageid)) callback(wikipedia, inputId)
-        else errorLog(getError('pageId', id))
-      })
+    const wikidataId = isWikidataId(id)
+      ? id
+      : await getWikidataIdFromWikipedia(id).then((wikidata) => {
+          if (!showError(wikidata && wikidata?.id)) callback({ wikidataId: wikidata && wikidata?.id }, inputId)
+          else errorLog(getError('wikidataId', id))
+          return wikidata && wikidata?.id
+        })
 
-      .then(() => getWikidataIdFromWikipedia(id))
-      .then((wikidata) => {
-        if (!showError(wikidata && wikidata?.id)) callback({ wikidataId: wikidata && wikidata?.id }, inputId)
-        else errorLog(getError('wikidataId', id))
-        return wikidata && wikidata?.id
-      })
-
-      .then(async (newId) =>
-        isWikidataId(id)
-          ? getWikidata(id, wikidataLog)
-          : newId && isWikidataId(newId)
-          ? getWikidata(newId, wikidataLog)
-          : ''
-      )
-      .then((claims) => {
+    if (isWikidataId(wikidataId)) {
+      await getWikidata(wikidataId, wikidataLog).then((claims) => {
         if (!showError(claims)) callback(claims, inputId)
         else errorLog(getError('noClaims', id))
       })
+    }
+
+    // .then(async (newId) =>
+    //   isWikidataId(id)
+    //     ? getWikidata(id, wikidataLog)
+    //     : newId && isWikidataId(newId)
+    //     ? getWikidata(newId, wikidataLog)
+    //     : ''
+    // )
   } catch (e) {
     console.error(e)
     errorLog(getError('js', inputId))

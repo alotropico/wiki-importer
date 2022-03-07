@@ -41,9 +41,12 @@
   height: 2rem;
 
   & > span {
+    white-space: nowrap;
     line-height: 1rem;
     padding: 0 0.5rem;
+    overflow: hidden;
     background-color: cornflowerblue;
+    border-radius: 2px;
     cursor: pointer;
   }
 }
