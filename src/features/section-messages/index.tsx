@@ -40,4 +40,4 @@ export default function SectionMessages() {
 }
 
 const objArrayToText = (ar) =>
-  ar.map((i) => `${i?.wikidataId}: ${i?.label}` + (i?.coordinates ? ', // place' : ',')).join('\n')
+  ar.map((i) => `${i?.wikidataId}: "${i?.label}"` + (i?.coordinates ? ', // place' : ',')).join('\n')

@@ -24,6 +24,8 @@ const getWiki = async (inputId, callback, wikidataLog, errorLog) => {
 
     const wikidataId = isWikidataId(id)
       ? id
+      : isWikidataId(inputId)
+      ? inputId
       : await getWikidataIdFromWikipedia(id).then((wikidata) => {
           if (!showError(wikidata && wikidata?.id)) callback({ wikidataId: wikidata && wikidata?.id }, inputId)
           else errorLog(getError('wikidataId', id))
@@ -36,14 +38,6 @@ const getWiki = async (inputId, callback, wikidataLog, errorLog) => {
         else errorLog(getError('noClaims', id))
       })
     }
-
-    // .then(async (newId) =>
-    //   isWikidataId(id)
-    //     ? getWikidata(id, wikidataLog)
-    //     : newId && isWikidataId(newId)
-    //     ? getWikidata(newId, wikidataLog)
-    //     : ''
-    // )
   } catch (e) {
     console.error(e)
     errorLog(getError('js', inputId))

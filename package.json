@@ -2,7 +2,7 @@
   "name": "wiki-importer",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/wiki-importer",
+  "homepage": "projects/wiki-importer",
   "dependencies": {
     "@geo-maps/world-land-100m": "^0.5.0",
     "@types/node": "^16.11.19",

@@ -5,12 +5,12 @@ const wikidataProperties = {
   P18: { label: 'image' },
 
   P276: { label: 'place', multi: true, type: 'place' }, // location
-  P19: { label: 'place', multi: true, type: 'place' }, // birth place
-  P20: { label: 'place', multi: true, type: 'place' }, // place of death
-  P551: { label: 'place', multi: true, type: 'place' }, // residence
+  P19: { label: 'birth', multi: true, type: 'place' }, // birth place
+  P20: { label: 'death', multi: true, type: 'place' }, // place of death
+  P551: { label: 'residence', multi: true, type: 'place' }, // residence
 
-  P27: { label: 'set', multi: true, type: 'place' }, // country of citizenship
-  // P172: { label: 'set', multi: true }, // ethnic group
+  P27: { label: 'country', multi: true, type: 'place' }, // country of citizenship
+  P172: { label: 'ethnicity', multi: true }, // ethnic group
   P361: { label: 'set', multi: true }, // part of
 
   P571: { label: 'start', type: 'date' }, // inception
@@ -33,7 +33,7 @@ const wikidataProperties = {
   P509: { label: 'causeOfDeath' },
 
   P103: { label: 'language', multi: true }, // native
-  P1412: { label: 'language', multi: true }, // spoken or written
+  P1412: { label: 'otherLanguages', multi: true }, // spoken or written
 
   P106: { label: 'occupation', multi: true },
   P102: { label: 'faction', multi: true }, // political party
@@ -42,8 +42,8 @@ const wikidataProperties = {
   P1576: { label: 'lifestyle', multi: true },
 
   P39: { label: 'events', multi: true, type: 'event' }, // position held
-  P793: { label: 'events', multi: true, type: 'event' },
-  P607: { label: 'events', multi: true, type: 'event' },
+  P793: { label: 'events', multi: true, type: 'event' }, // significant event
+  P607: { label: 'events', multi: true, type: 'event' }, // conflict
 }
 
 export default wikidataProperties

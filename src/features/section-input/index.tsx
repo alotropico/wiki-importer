@@ -42,16 +42,6 @@ export default function SectionInput() {
 
 const placeholder = `Write something to search here...
 
-Names or Wikidata ids: Madam Curie, Tyrannosaurus, India...`
+Names or Wikidata ids separated by colons, semicolons or newlines:
 
-/* You can also paste a list in JSON format:
-[
-  {
-    "id": "Julius Caesar",
-    "place": "Rome"
-  },
-  {
-    "id": "Q16",
-    "language": "English"
-  }
-]` */
+Marie Curie, Tyrannosaurus, Djibouti, Q1048, Q16...`
