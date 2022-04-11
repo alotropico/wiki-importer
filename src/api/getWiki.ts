@@ -32,6 +32,8 @@ const getWiki = async (inputId, callback, wikidataLog, errorLog) => {
           return wikidata && wikidata?.id
         })
 
+    callback({ wikidataId }, inputId)
+
     if (isWikidataId(wikidataId)) {
       await getWikidata(wikidataId, wikidataLog).then((claims) => {
         if (!showError(claims)) callback(claims, inputId)
